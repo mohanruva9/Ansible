@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Update Ubuntu
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK 17
+      apt:
+        name: openjdk-17-jre-headless
+        state: present
+
+    - name: Create directory /opt/tomcat
+      file:
+        path: /opt/tomcat
+        state: directory
+
+    - name: Download Tomcat
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88.tar.gz
+        dest: /opt/tomcat
+
+    - name: Extract Tomcat
+      unarchive:
+        src: /opt/tomcat/apache-tomcat-9.0.88.tar.gz
+        dest: /opt/tomcat
+        remote_src: yes
+
+    - name: Run startup.sh
+      command: /opt/tomcat/apache-tomcat-9.0.88/bin/startup.sh
+      register: output
+
+    - name: Show output
+      debug:
+        var: output.stdout_lines
+
+# plase ensure ansbile installed to check ansbile --version to Install ansbile apt Install ansbile.
+# name this file as filename.yml
+# to run this fiel ansible-playbook filename.yml
