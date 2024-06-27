@@ -19,17 +19,17 @@
 
     - name: Download Tomcat
       get_url:
-        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88.tar.gz
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.90.tar.gz
         dest: /opt/tomcat
 
     - name: Extract Tomcat
       unarchive:
-        src: /opt/tomcat/apache-tomcat-9.0.88.tar.gz
+        src: /opt/tomcat/apache-tomcat-9.0.90.tar.gz
         dest: /opt/tomcat
         remote_src: yes
 
     - name: Run startup.sh
-      command: /opt/tomcat/apache-tomcat-9.0.88/bin/startup.sh
+      command: /opt/tomcat/apache-tomcat-9.0.90/bin/startup.sh
       register: output
 
     - name: Show output
